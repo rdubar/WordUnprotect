@@ -32,5 +32,10 @@ welcome.
 Marc Thibault, 26 January 1993
 #### Updated by RD, 18 December 2023
 ```
+gh repo clone rdubar/WordUnprotect
+cd WordUnprotect/wu
+# compile for MacOS / Linux
 g++ -o wu wu.cpp
+chomod +x wu
+# mv wu <your path>
 ```
