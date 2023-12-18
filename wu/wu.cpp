@@ -1,7 +1,7 @@
-// wu.cpp        -- Unprotect Microsoft Word/Winword Document
+// wu.cpp        -- Unprotect Microsoft Word for Windows 2.0, 6.0 Document
 
 
-//	Marc Thibault <marc@tanda.isis.org>
+//	Marc Thibault <marc@tanda.isis.org> - 26 January 1993
 
 // Word protects a document by XOR'ing a 16-byte key repetitively
 //	through the document file, starting at byte 40. The header (0x180 bytes)
@@ -27,20 +27,21 @@
 //	6	Problem writing to output file
 
 
-#include <stdio.h>
-#include <process.h>
-#ifdef __TURBOC__
-    #include <iostream.h>
-#endif
-#ifdef __ZTC__
-    #include <stream.h>
-#endif
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
 
-#define Version "1.2"
-#define VersionDate "26 January 1993"
+// Define constants
+#define Version "1.2rd"
+#define VersionDate "Updated on 2023-12-18"
 #define keyLength 0x10
 #define bufferLength 0x180
 #define headerLength 0x180
+
+// Your additional comments here
+// This is a fork of the original code by Marc Thibault
+// Modified by Roger Dubar for compatibility with Linux.
+// MacOS and Windows 11 to follow.
 
 
 int  findKey(unsigned char buffer[], unsigned char key[]);
@@ -51,14 +52,15 @@ void fixBuffer(unsigned char buffer[], unsigned char key[]);
 void showBuffer(unsigned char buf[]);
 #endif
 
-char *copyLeft[] = {"\nMarc Thibault <marc@tanda.isis.org>\n",
-                    " Oxford Mills, Ontario \n",
-					" This work is released to the public domain. \n",
-					" It may be copied and distributed freely \n",
-					" with appropriate attribution to the author.\n"};
+const char *copyLeft[] = {"\nMarc Thibault <marc@tanda.isis.org>\n",
+                          " Oxford Mills, Ontario \n",
+                          " This work is released to the public domain. \n",
+                          " It may be copied and distributed freely \n",
+                          " with appropriate attribution to the author.\n"};
 
 
-void main(int argc, char *argv[])
+
+int main(int argc, char *argv[])
 {
 	unsigned char buffer[bufferLength];		// data buffer
 	unsigned char key[keyLength];			// encryption key
@@ -71,9 +73,9 @@ void main(int argc, char *argv[])
 
 	if( argc < 3)                         	// file names must be present
 	{
-		cout << "\n Word Unprotect -- Version " << Version;
-		cout << "\n   by Marc Thibault, " << VersionDate;
-		cout << "\n Syntax: wu infile outfile \n";
+		std::cout << "\n Word Unprotect -- Version " << Version;
+		std::cout << "\n   by Marc Thibault, " << VersionDate;
+		std::cout << "\n Syntax: wu infile outfile \n";
 		exit (1);
 	}
 
@@ -81,13 +83,13 @@ void main(int argc, char *argv[])
 
 	if( NULL == (crypt = fopen(argv[1], "rb")))
 	{
-		cout << "\n wu error: can't open the input file\n";
+		std::cout << "\n wu error: can't open the input file\n";
 		exit (2);
 	}
 
 	if( NULL == (plain = fopen(argv[2], "wb")))
 	{
-		cout << "\n wu error: can't open the output file\n";
+		std::cout << "\n wu error: can't open the output file\n";
 		exit (3);
 	}
 
@@ -96,7 +98,7 @@ void main(int argc, char *argv[])
 	count = fread(buffer,1,headerLength,crypt);
 	if(count != bufferLength)
 	{
-		cout << "\n wu error: Input file too short to be a Word File\n";
+		std::cout << "\n wu error: Input file too short to be a Word File\n";
 		exit(5);
 	}
 
@@ -104,14 +106,14 @@ void main(int argc, char *argv[])
 
 	if(findKey(buffer,key))
 	{
-    	cout << "\n wu error: Couldn't find a key \n";
+    	std::cout << "\n wu error: Couldn't find a key \n";
 		exit(4);
 	}
 
 #ifdef debug
-	cout << "\n Key in hexadecimal is";
+	std::cout << "\n Key in hexadecimal is";
 	for (i=0; i<keyLength; i++) printf(" %02X", key[i]);
-	cout << "\n";
+	std::cout << "\n";
 #endif
 
 	// Decrypt/fixup the header and
@@ -121,7 +123,7 @@ void main(int argc, char *argv[])
     check = fwrite(buffer, 1, headerLength, plain);
 	if (check != headerLength)
 	{
-		cout << "\n wu error: Problem writing to output file";
+		std::cout << "\n wu error: Problem writing to output file";
 		exit(6);
 	}
 
@@ -136,7 +138,7 @@ void main(int argc, char *argv[])
 			check = fwrite(buffer, 1, count, plain);
 			if (check != count)
 			{
-				cout << "\n wu error: Problem writing to output file";
+				std::cout << "\n wu error: Problem writing to output file";
 				exit(6);
 			}
         }
