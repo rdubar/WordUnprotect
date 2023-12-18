@@ -29,6 +29,5 @@ freeware but without source code.
 And yes, the password to that decades-old Word document was indeed `password`. You're
 welcome.
 
-// Marc Thibault, 26 January 1993
-
-// Updated by RD, 18 December 2023
+#### Marc Thibault, 26 January 1993
+#### Updated by RD, 18 December 2023
