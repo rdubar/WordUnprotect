@@ -36,6 +36,6 @@ gh repo clone rdubar/WordUnprotect
 cd WordUnprotect/wu
 # compile for MacOS / Linux
 g++ -o wu wu.cpp
-chomod +x wu
+chmod +x wu
 # mv wu <your path>
 ```
