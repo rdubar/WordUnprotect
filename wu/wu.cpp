@@ -33,13 +33,13 @@
 
 // Define constants
 #define Version "1.2rd"
-#define VersionDate "Updated on 2023-12-18"
+#define VersionDate "Updated on 2023-12-19"
 #define keyLength 0x10
 #define bufferLength 0x180
 #define headerLength 0x180
 
 // This is a fork of the original code by Marc Thibault
-// Modified by Roger Dubar for compatibility with Linux & MacOS
+// Modified by Roger Dubar for compatibility with modern Linux & MacOS
 // Windows 11 executable may follow.
 //
 // 2023-12-19
