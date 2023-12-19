@@ -30,12 +30,13 @@ And yes, the password to that decades-old Word document was indeed `password`. Y
 welcome.
 
 Marc Thibault, 26 January 1993
-#### Updated by RD, 18 December 2023
+#### Updated by RD, 19 December 2023
 ```
 gh repo clone rdubar/WordUnprotect
 cd WordUnprotect/wu
 # compile for MacOS / Linux
 g++ -o wu wu.cpp
 chmod +x wu
-# mv wu <your path>
+# change the path below to somewhere in your path
+mv wu ~/bin
 ```

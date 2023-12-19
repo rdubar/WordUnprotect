@@ -38,10 +38,11 @@
 #define bufferLength 0x180
 #define headerLength 0x180
 
-// Your additional comments here
 // This is a fork of the original code by Marc Thibault
-// Modified by Roger Dubar for compatibility with Linux.
-// MacOS and Windows 11 to follow.
+// Modified by Roger Dubar for compatibility with Linux & MacOS
+// Windows 11 executable may follow.
+//
+// 2023-12-19
 
 
 int  findKey(unsigned char buffer[], unsigned char key[]);
@@ -73,7 +74,7 @@ int main(int argc, char *argv[])
 
 	if( argc < 3)                         	// file names must be present
 	{
-		std::cout << "\n Word Unprotect -- Version " << Version;
+		std::cout << "\n Word 2.0, 6.0 Unprotect -- Version " << Version;
 		std::cout << "\n   by Marc Thibault, " << VersionDate;
 		std::cout << "\n Syntax: wu infile outfile \n";
 		exit (1);
